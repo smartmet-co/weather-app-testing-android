@@ -15,9 +15,6 @@ Verify Is Process Running
 Terminate All Processes Gracefully
     [Arguments]    @{args}
     FOR    ${process}    IN    @{args}
-#        Verify Is Process Running    ${process}    ${TRUE}
-#        ${process_id}=    Get Process Id    ${process}
-#        IF    '${process_id}'=='None'    CONTINUE
         ${is_process_running}=    Is Process Running    ${process}
         IF    ${is_process_running}==${None}
             CONTINUE

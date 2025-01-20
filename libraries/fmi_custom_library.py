@@ -1,6 +1,4 @@
 from datetime import datetime, timedelta
-#from time import strftime
-#from decorator import append
 
 """ This function returns next full hour in given format (optional). Default format is %H.%M """
 
