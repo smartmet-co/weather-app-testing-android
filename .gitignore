@@ -3,3 +3,4 @@
 *.pyc
 .venv/
 .idea/
+variables/config_variabs.py
