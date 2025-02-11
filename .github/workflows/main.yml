@@ -55,20 +55,26 @@ jobs:
 
       - name: Set Android SDK Environment Variables
         run: |
-          echo "ANDROID_HOME=/usr/local/lib/android/sdk" >> $GITHUB_ENV
-          echo "ANDROID_SDK_ROOT=/usr/local/lib/android/sdk" >> $GITHUB_ENV
-          echo "PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin" >> $GITHUB_ENV
-
-      # Create and Start Android Emulator
-#      - name: Create and Start Android Emulator
-#        run: |
-#          echo "no" | avdmanager create avd -n test_emulator -k "system-images;android-31;google_apis;x86_64" --device "pixel_3"
-#          nohup emulator -avd test_emulator -no-window -no-audio -gpu swiftshader_indirect -no-boot-anim &
+          echo "ANDROID_AVD_HOME=$HOME/.android/avd" >> $GITHUB_ENV
+          echo "ANDROID_SDK_HOME=$ANDROID_HOME" >> $GITHUB_ENV
+          echo "PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$PATH" >> $GITHUB_ENV
 
       - name: Create and Start Android Emulator
         run: |
-          echo "no" | avdmanager create avd -n test_emulator -k "system-images;android-31;google_apis;x86_64" --device "pixel_3"
+          echo "no" | avdmanager create avd -n test_emulator -k "system-images;android-31;google_apis;x86_64" --device "pixel_3" --force
+          echo "Listing available AVDs..."
+          avdmanager list avd
+          echo "Starting emulator..."
           $ANDROID_HOME/emulator/emulator -avd test_emulator -no-window -no-audio -gpu swiftshader_indirect -no-boot-anim &
+
+      - name: Debug AVD List and Paths
+        run: |
+          echo "Checking available AVDs..."
+          avdmanager list avd
+          echo "Checking emulator path..."
+          ls -la $ANDROID_HOME/emulator/
+          echo "Checking AVD directory..."
+          ls -la ~/.android/avd/
 
       # Wait for Emulator to Boot
       - name: Wait for Emulator to Boot
