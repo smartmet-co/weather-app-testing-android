@@ -21,11 +21,14 @@ jobs:
 #        run: mkdir -p apk
 
       # Step to Download and Unzip File into apk-folder
-      - name: Download and Unzip File
+      - name: Download and Apk File
         run: |
-          curl -L -o temp.zip "https://github.com/fmidev/weather-app/actions/runs/13132988188/artifacts/2532904562"
-          unzip temp.zip -d apk/
-          rm temp.zip
+          cd apk
+          curl -LO "https://github.com/fmidev/weather-app/releases/download/latest/app-latest.apk"
+
+      # Verify Downloaded File
+      - name: Verify Downloaded Apk File
+        run: ls -la apk/
 
       # Set Up Java (Required for Android SDK)
       - name: Set Up Java
@@ -97,11 +100,11 @@ jobs:
           robot -d results tests/map_view_tests.robot
         continue-on-error: true
 
-      # Remove Unzipped Files from apk-folder After Tests
-      - name: Clean Up Extracted Files
+      # Remove apks from apk-folder After Tests
+      - name: Clean Up Apk Files
         run: |
-          rm -rf apk/*
-          echo "Cleaned up extracted files, but kept apk-folder"
+          rm -f apk/*.apk
+          echo "Cleaned up apk files, but kept apk-folder"
 
       # Upload Robot Framework test results as artifacts
       - name: Upload Artifacts
