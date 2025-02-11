@@ -23,7 +23,7 @@ jobs:
       # Step to Download and Unzip File into apk-folder
       - name: Download and Unzip File
         run: |
-          curl -L -o temp.zip "https://github.com/fmidev/weather-app/actions/runs/13132988188/artifacts/2532904562/app-latest.zip"
+          curl -L -o temp.zip "https://github.com/fmidev/weather-app/actions/runs/13132988188/artifacts/2532904562"
           unzip temp.zip -d apk/
           rm temp.zip
 
