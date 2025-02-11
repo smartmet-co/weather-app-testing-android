@@ -1,13 +1,15 @@
 *** Keywords ***
+
 Set Appium Capabilities And Open App
+    [Arguments]    ${android_version}=%{PLATFORM_VERSION}    ${device_name}=%{DEVICE_NAME}    ${app}=${APP_PACKAGE}    ${activity}=${APP_ACTIVITY}
     ${android_driver}=    Open Application    ${APPIUM_SERVER}
     ...    platformName=${PLATFORM_NAME}
-    ...    platformVersion=${PLATFORM_VERSION}
-    ...    deviceName=${DEVICE_NAME}
+    ...    platformVersion=${android_version}
+    ...    deviceName=${device_name}
     ...    automationName=${AUTOMATION_NAME}
-    ...    appPackage=${APP_PACKAGE}
-    ...    appActivity=${APP_ACTIVITY}
-    ...    optionalIntentArguments=e2e true
+    ...    appPackage=${app}
+    ...    appActivity=${activity}
+    ...    appium:wdaLaunchTimeout=${180000}
 
 Set Appium Capabilities With Mock Server And Open App
     ${android_driver}=    Open Application    ${APPIUM_SERVER}

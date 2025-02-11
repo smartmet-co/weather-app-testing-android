@@ -15,9 +15,8 @@ Resource         ../resources/map_view_resources.resource
 Variables        ../variables/appium_setup_variables.py
 Variables        ../variables/onboarding_variables.py
 Variables        ../variables/dut_variables.py
-Variables        ../variables/config_variables.py
-Test Setup       Start Emulator And Appium With App    ${APP_PACKAGE}    latest.apk
-Test Teardown    Run Keyword If Test Failed    Terminate All Processes Gracefully    emulator_process    appium_server_process
+Test Setup       Test Setup Actions    ${APP_PACKAGE}    app-latest.apk
+Test Teardown    Run Keyword If Test Failed    Test Teardown Actions
 
 *** Test Cases ***
 Verify Map View Elements

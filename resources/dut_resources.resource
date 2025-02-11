@@ -58,12 +58,12 @@ Set DUT Geo Fix Location
     List Should Contain Value    ${lines}    OK
 
 Start Emulator And Appium With App
-    [Arguments]    ${app_package}    ${package_name}
+    [Arguments]    ${app_package}    ${package_name}    ${android_version}=${ANDROID_VERSION_LOCAL_1}    ${device_name}=${DEVICE_NAME_LOCAL_1}
     Start Appium Server
     Start Emulator
     Sleep    20
     Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
-    Set Appium Capabilities And Open App
+    Set Appium Capabilities And Open App    ${android_version}    ${device_name}
 
 Start Emulator And Appium With Mock Server
     [Arguments]    ${mock_server_location}    ${app_package}    ${package_name}
@@ -73,3 +73,27 @@ Start Emulator And Appium With Mock Server
     Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
     Set Appium Capabilities With Mock Server And Open App
     Open Fmi Application With Mock Server
+
+Test Setup Actions
+    [Arguments]    ${app_package}    ${package_name}
+    ${is_ci_env}=    Verify Environment
+    IF    ${is_ci_env}==${TRUE}
+        Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
+        Set Appium Capabilities
+    ELSE IF    ${is_ci_env}==${FALSE}
+        Import Variables    ${CURDIR}/../variables/config_variables.py
+        Start Emulator And Appium With App    ${app_package}    ${package_name}
+    END
+
+Test Teardown Actions
+    ${is_ci_env}=    Verify Environment
+    IF    ${is_ci_env}==${TRUE}
+        No Operation
+    ELSE IF    ${is_ci_env}==${FALSE}
+        Terminate All Processes Gracefully    emulator_process    appium_server_process
+    END
+
+Verify Environment
+    ${env_variables_dict}=    Get Environment Variables
+    ${status}=    Get Status Is Key Found In Dictionary    ${env_variables_dict}    CI_ENV_ANDROID
+    RETURN    ${status}

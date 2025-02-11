@@ -1,0 +1,122 @@
+name: Android Robot Framework CI /CD Tests
+
+on:
+  workflow_dispatch:
+
+env:
+  CI_ENV_ANDROID: "ci_android"
+  PLATFORM_VERSION: "12"
+  DEVICE_NAME: "pixel_3"
+
+jobs:
+  run-robot-framework-appium-android-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+#      # Ensure apk-folder exists before downloading
+#      - name: Ensure apk-folder Exists
+#        run: mkdir -p apk
+
+      # Step to Download and Unzip File into apk-folder
+      - name: Download and Unzip File
+        run: |
+          curl -L -o temp.zip "https://github.com/fmidev/weather-app/actions/runs/13132988188/artifacts/2532904562/app-latest.zip"
+          unzip temp.zip -d apk/
+          rm temp.zip
+
+      # Set Up Java (Required for Android SDK)
+      - name: Set Up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      # Install Required Dependencies for Emulator
+      - name: Install Required Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
+
+      # Set Up Android SDK
+      - name: Set Up Android SDK
+        uses: android-actions/setup-android@v3
+
+      # Install SDK Tools, System Image, and Accept Licenses
+      - name: Install SDK Tools and Accept Licenses
+        run: |
+          sdkmanager --install "platform-tools" "platforms;android-31" "system-images;android-31;google_apis;x86_64"
+          yes | sdkmanager --licenses
+
+      # Create and Start Android Emulator
+      - name: Create and Start Android Emulator
+        run: |
+          echo "no" | avdmanager create avd -n test_emulator -k "system-images;android-31;google_apis;x86_64" --device "pixel_3"
+          nohup emulator -avd test_emulator -no-window -no-audio -gpu swiftshader_indirect -no-boot-anim &
+
+      # Wait for Emulator to Boot
+      - name: Wait for Emulator to Boot
+        run: |
+          adb wait-for-device
+          adb shell input keyevent 82
+          sleep 60
+
+      # Install Node.js for Appium
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # Install Appium and Drivers
+      - name: Install Appium and Drivers
+        run: |
+          npm install -g appium
+          appium driver install uiautomator2
+
+      # Start Appium Server
+      - name: Start Appium Server
+        run: |
+          appium --base-path /wd/hub --address 127.0.0.1 --port 4723 --log-level info > appium.log 2>&1 &
+          sleep 20
+
+      # Install Python and Robot Framework Dependencies
+      - name: Install Python Dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install robotframework
+          pip install robotframework-appiumlibrary
+          pip install robotframework-seleniumLibrary
+          pip install Appium-Python-Client
+          pip install pytz
+
+      # Run Robot Framework Tests
+      - name: Run Robot Framework Tests
+        run: |
+          robot -d results tests/map_view_tests.robot
+        continue-on-error: true
+
+      # Remove Unzipped Files from apk-folder After Tests
+      - name: Clean Up Extracted Files
+        run: |
+          rm -rf apk/*
+          echo "Cleaned up extracted files, but kept apk-folder"
+
+      # Upload Robot Framework test results as artifacts
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-test-results
+          path: |
+            ./results
+            ./stdout
+          retention-days: 2
+
+      # Upload Appium Logs
+      - name: Upload Appium Logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: appium-logs
+          path: appium.log
+          retention-days: 2

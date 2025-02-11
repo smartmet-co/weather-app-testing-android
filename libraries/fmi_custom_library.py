@@ -83,3 +83,10 @@ def return_even_number_as_integer_if_float_is_even(fl):
         return int(fl)
     else:
         return fl
+
+
+""" This function returns True or False if given key exists in given dictionary. """
+
+
+def get_status_is_key_found_in_dictionary(dictionary, key):
+    return key in dictionary
