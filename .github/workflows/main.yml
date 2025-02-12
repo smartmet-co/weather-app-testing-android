@@ -50,7 +50,7 @@ jobs:
       # Install SDK Tools, System Image, and Accept Licenses
       - name: Install SDK Tools and Accept Licenses
         run: |
-          sdkmanager --install "platform-tools" "emulator" "system-images;android-31;google_apis;x86_64"
+          sdkmanager --install "platform-tools" "emulator" "system-images;android-31;google_apis;arm64-v8a"
           yes | sdkmanager --licenses
 
       - name: Set Android SDK Environment Variables
@@ -61,7 +61,7 @@ jobs:
 
       - name: Create and Start Android Emulator
         run: |
-          echo "no" | avdmanager create avd -n test_emulator -k "system-images;android-31;google_apis;x86_64" --device "pixel_3" --force
+          echo "no" | avdmanager create avd -n test_emulator -k "system-images;android-31;google_apis;arm64-v8a" --device "pixel_3" --force
           echo "Listing available AVDs..."
           avdmanager list avd
           echo "Starting emulator..."
