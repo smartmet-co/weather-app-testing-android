@@ -67,14 +67,14 @@ jobs:
           echo "Starting emulator..."
           $ANDROID_HOME/emulator/emulator -avd test_emulator -no-window -no-audio -gpu swiftshader_indirect -no-boot-anim &
 
-      - name: Debug AVD List and Paths
-        run: |
-          echo "Checking available AVDs..."
-          avdmanager list avd
-          echo "Checking emulator path..."
-          ls -la $ANDROID_HOME/emulator/
-          echo "Checking AVD directory..."
-          ls -la ~/.android/avd/
+#      - name: Debug AVD List and Paths
+#        run: |
+#          echo "Checking available AVDs..."
+#          avdmanager list avd
+#          echo "Checking emulator path..."
+#          ls -la $ANDROID_HOME/emulator/
+#          echo "Checking AVD directory..."
+#          ls -la ~/.android/avd/
 
       # Wait for Emulator to Boot
       - name: Wait for Emulator to Boot
