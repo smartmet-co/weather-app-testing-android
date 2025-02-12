@@ -59,6 +59,11 @@ jobs:
           echo "ANDROID_SDK_HOME=$ANDROID_HOME" >> $GITHUB_ENV
           echo "PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$PATH" >> $GITHUB_ENV
 
+      - name: Restart ADB
+        run: |
+          adb kill-server || true
+          adb start-server
+
       - name: Create and Start Android Emulator
         run: |
           echo "no" | avdmanager create avd -n test_emulator -k "system-images;android-31;google_apis;x86_64" --device "pixel_3" --force
@@ -66,16 +71,7 @@ jobs:
           avdmanager list avd
           echo "Starting emulator..."
           $ANDROID_HOME/emulator/emulator -avd test_emulator -no-window -no-audio -gpu swiftshader_indirect -no-boot-anim -no-snapshot-load -accel off &
-          Sleep 30
-
-#      - name: Debug AVD List and Paths
-#        run: |
-#          echo "Checking available AVDs..."
-#          avdmanager list avd
-#          echo "Checking emulator path..."
-#          ls -la $ANDROID_HOME/emulator/
-#          echo "Checking AVD directory..."
-#          ls -la ~/.android/avd/
+          sleep 60
 
       # Wait for Emulator to Boot
       - name: Wait for Emulator to Boot
