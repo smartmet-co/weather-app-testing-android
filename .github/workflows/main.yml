@@ -71,7 +71,7 @@ jobs:
           avdmanager list avd
           echo "Starting emulator..."
           $ANDROID_HOME/emulator/emulator -avd test_emulator -no-window -no-audio -gpu swiftshader_indirect -no-boot-anim -no-snapshot-load -accel off &
-          sleep 60
+          sleep 180
 
       # Wait for Emulator to Boot
       - name: Wait for Emulator to Boot
@@ -84,7 +84,7 @@ jobs:
               exit 0
             fi
             echo "Emulator is still booting, waiting..."
-            sleep 10
+            sleep 30
           done
           echo "Emulator failed to boot within the timeout!"
           exit 1
