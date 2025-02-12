@@ -66,6 +66,7 @@ jobs:
           avdmanager list avd
           echo "Starting emulator..."
           $ANDROID_HOME/emulator/emulator -avd test_emulator -no-window -no-audio -gpu swiftshader_indirect -no-boot-anim -no-snapshot-load -accel off &
+          Sleep 30
 
 #      - name: Debug AVD List and Paths
 #        run: |
@@ -80,8 +81,17 @@ jobs:
       - name: Wait for Emulator to Boot
         run: |
           adb wait-for-device
-          sleep 100  # Allow emulator more time to boot
-          adb shell getprop sys.boot_completed | grep -m 1 '1' || (echo "Emulator failed to boot" && exit 1)
+          echo "Waiting for emulator to fully boot..."
+          for i in {1..10}; do
+            if adb shell getprop sys.boot_completed | grep -m 1 '1'; then
+              echo "Emulator is ready!"
+              exit 0
+            fi
+            echo "Emulator is still booting, waiting..."
+            sleep 10
+          done
+          echo "Emulator failed to boot within the timeout!"
+          exit 1
 
       # Install Node.js for Appium
       - name: Set Up Node.js
