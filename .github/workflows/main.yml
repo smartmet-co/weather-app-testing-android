@@ -10,7 +10,7 @@ env:
 
 jobs:
   run-robot-framework-appium-android-tests:
-    runs-on: ubuntu-22.04-android-xl
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout Repository
