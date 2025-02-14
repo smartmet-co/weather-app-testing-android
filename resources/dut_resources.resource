@@ -79,7 +79,7 @@ Test Setup Actions
     ${is_ci_env}=    Verify Environment
     IF    ${is_ci_env}==${TRUE}
         Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
-        Set Appium Capabilities
+        Set Appium Capabilities And Open App
     ELSE IF    ${is_ci_env}==${FALSE}
         Import Variables    ${CURDIR}/../variables/config_variables.py
         Start Emulator And Appium With App    ${app_package}    ${package_name}
