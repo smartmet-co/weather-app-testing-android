@@ -20,7 +20,6 @@ Test Teardown    Run Keyword If Test Failed    Test Teardown Actions
 
 *** Test Cases ***
 Verify Map View Elements
-    Set DUT Geo Fix Location    ${GEO_LOCATION_COORDINATES_DICT}[Savukoski]
     Weather forecast and observations Title Is Visible
     Click Skip Button
     Click Terms of Use Button
@@ -30,6 +29,6 @@ Verify Map View Elements
     Click Next Setup Button
     Verify Grant Dialog Opens
     Press While Using App From Grant Dialog
-    Verify Location Text From Upper Bar    Savukoski
+    Verify Location Text From Upper Bar    Crittenden School Park
     Open Map View
     Terminate All Processes Gracefully    emulator_process    appium_server_process
