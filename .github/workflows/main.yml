@@ -67,7 +67,6 @@ jobs:
           script: |
             echo "Emulator started"
 
-          # Install Python and Robot Framework Dependencies
             echo "Installing Python and Robot Framework dependencies..."
             python3 -m pip install --upgrade pip
             pip install robotframework
@@ -76,16 +75,13 @@ jobs:
             pip install Appium-Python-Client
             pip install pytz
 
-          # Start Appium Server
             echo "Starting Appium server..."
             appium --base-path /wd/hub --address 127.0.0.1 --port 4723 --log-level info > appium.log 2>&1 &
             sleep 20
 
-          # Run Robot Framework Tests
             echo "Running Robot Framework tests..."
             robot -d results tests/map_view_tests.robot
 
-          # Remove apks from apk-folder After Tests
             echo "Cleaning up APK files..."
             rm -f apk/*.apk
             echo "Cleaned up apk files, but kept apk-folder"
