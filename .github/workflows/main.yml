@@ -5,12 +5,12 @@ on:
 
 env:
   CI_ENV_ANDROID: "ci_android"
-  PLATFORM_VERSION: "12"
-  DEVICE_NAME: "pixel_3"
+  PLATFORM_VERSION: "12.0"
+  DEVICE_NAME: "emulator-5554"
 
 jobs:
   run-robot-framework-appium-android-tests:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
@@ -37,41 +37,21 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      # Install Required Dependencies for Emulator
-      - name: Install Required Dependencies
+      - name: Enable KVM Group Permissions
         run: |
-          sudo apt-get update
-          sudo apt-get install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
 
-      # Set Up Android SDK
-      - name: Set Up Android SDK
-        uses: android-actions/setup-android@v3
-
-      # Install SDK Tools, System Image, and Accept Licenses
-      - name: Install SDK Tools and Accept Licenses
-        run: |
-          sdkmanager --install "platform-tools" "emulator" "system-images;android-31;google_apis;x86_64"
-          yes | sdkmanager --licenses
-
-      - name: Set Android SDK Environment Variables
-        run: |
-          echo "ANDROID_AVD_HOME=$HOME/.android/avd" >> $GITHUB_ENV
-          echo "ANDROID_SDK_HOME=$ANDROID_HOME" >> $GITHUB_ENV
-          echo "PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$PATH" >> $GITHUB_ENV
-
-      - name: Restart ADB
-        run: |
-          adb kill-server || true
-          adb start-server
-
-      - name: Create and Start Android Emulator
-        run: |
-          echo "no" | avdmanager create avd -n test_emulator -k "system-images;android-31;google_apis;x86_64" --device "pixel_3" --force
-          echo "Listing available AVDs..."
-          avdmanager list avd
-          echo "Starting emulator..."
-          $ANDROID_HOME/emulator/emulator -avd test_emulator -no-window -no-audio -gpu swiftshader_indirect -no-boot-anim &
-          sleep 180
+      - name: Start Android Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 31
+          target: google_apis
+          arch: x86_64
+          profile: pixel_3
+          emulator-options: '-no-window -no-boot-anim'
+          disable-animations: true
 
       # Wait for Emulator to Boot
       - name: Wait for Emulator to Boot
@@ -84,7 +64,7 @@ jobs:
               exit 0
             fi
             echo "Emulator is still booting, waiting..."
-            sleep 30
+            sleep 10
           done
           echo "Emulator failed to boot within the timeout!"
           exit 1
