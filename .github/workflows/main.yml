@@ -52,7 +52,9 @@ jobs:
           profile: pixel_3
           emulator-options: '-no-window -no-boot-anim'
           disable-animations: true
-          script: echo "Emulator started"
+          script: |
+            echo "Emulator started"
+            sleep 600
 
       # Wait for Emulator to Boot
       - name: Wait for Emulator to Boot
