@@ -13,7 +13,12 @@ Double Click Locate Button
     END
 
 Verify Location Text From Upper Bar
-    [Arguments]    ${text}
+    [Arguments]    ${manual_location_text}=xxx
+    ${is_ci_env}=    Verify Environment
+    ${text}=    Set Variable If
+    ...    ${is_ci_env}==${TRUE} and '${manual_location_text}'=='xxx'     ${CI_DEFAULT_LOCATION}
+    ...    ${is_ci_env}==${FALSE} and '${manual_location_text}'=='xxx'    ${LOCAL_DEFAULT_LOCATION}
+    ...    '${manual_location_text}'!='xxx'    ${manual_location_text}
     TRY
         Wait Until Page Contains Element    xpath=//android.view.ViewGroup[contains(@content-desc,"${text}")]    timeout=20
     EXCEPT     	Element * did not appear in *    type=GLOB

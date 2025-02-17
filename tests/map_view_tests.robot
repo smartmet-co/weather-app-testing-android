@@ -29,6 +29,6 @@ Verify Map View Elements
     Click Next Setup Button
     Verify Grant Dialog Opens
     Press While Using App From Grant Dialog
-    Verify Location Text From Upper Bar    Crittenden School Park
+    Verify Location Text From Upper Bar
     Open Map View
     Terminate All Processes Gracefully    emulator_process    appium_server_process
