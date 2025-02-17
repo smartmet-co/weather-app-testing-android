@@ -14,19 +14,24 @@ Verify Is Process Running
 
 Terminate All Processes Gracefully
     [Arguments]    @{args}
-    FOR    ${process}    IN    @{args}
-        ${is_process_running}=    Is Process Running    ${process}
-        IF    ${is_process_running}==${None}
-            CONTINUE
-        ELSE IF    '${process}'=='appium_server_process' and ${is_process_running}==${TRUE}
-            Stop Appium Server
-        ELSE IF    '${process}'=='emulator_process' and ${is_process_running}==${TRUE}
-            Stop Emulator
-        ELSE IF    '${process}'=='mock_server_process' and ${is_process_running}==${TRUE}
-            Stop Mock Server
-        END
-        IF    ${is_process_running}!=${None}
-            Process Should Be Stopped    ${process}
+    ${is_ci_env}=    Verify Environment
+    IF    ${is_ci_env}==${TRUE}
+        No Operation
+    ELSE IF    ${is_ci_env}==${FALSE}
+        FOR    ${process}    IN    @{args}
+            ${is_process_running}=    Is Process Running    ${process}
+            IF    ${is_process_running}==${None}
+                CONTINUE
+            ELSE IF    '${process}'=='appium_server_process' and ${is_process_running}==${TRUE}
+                Stop Appium Server
+            ELSE IF    '${process}'=='emulator_process' and ${is_process_running}==${TRUE}
+                Stop Emulator
+            ELSE IF    '${process}'=='mock_server_process' and ${is_process_running}==${TRUE}
+                Stop Mock Server
+            END
+            IF    ${is_process_running}!=${None}
+                Process Should Be Stopped    ${process}
+            END
         END
     END
     Terminate All Processes
