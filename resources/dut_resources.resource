@@ -74,7 +74,7 @@ Start Emulator And Appium With Mock Server
     Set Appium Capabilities With Mock Server And Open App
     Open Fmi Application With Mock Server
 
-Test Setup Actions
+Suite Setup Actions
     [Arguments]    ${app_package}    ${package_name}
     ${is_ci_env}=    Verify Environment
     IF    ${is_ci_env}==${TRUE}
@@ -85,7 +85,7 @@ Test Setup Actions
         Start Emulator And Appium With App    ${app_package}    ${package_name}
     END
 
-Test Teardown Actions
+Suite Teardown Actions
     ${is_ci_env}=    Verify Environment
     IF    ${is_ci_env}==${TRUE}
         No Operation

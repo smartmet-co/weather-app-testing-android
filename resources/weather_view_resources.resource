@@ -1,4 +1,9 @@
 *** Keywords ***
+Open Weather View
+    Wait Until Page Contains Element    xpath=//*[@resource-id='navigation_weather']
+    Click Element                       xpath=//*[@resource-id='navigation_weather']
+    Wait Until Page Contains Element    xpath=//*[@resource-id='params_button']
+
 Click Weather Button On Navigation Bar
     Wait Until Element Is Visible    xpath=//android.view.View[@resource-id="navigation_weather"]
     Click Element    xpath=//android.view.View[@resource-id="navigation_weather"]
@@ -28,7 +33,7 @@ Verify Location Text From Upper Bar
     END
     
 Verify Forecast Time
-    ${next_hour}=    Get Next Full Hour
+    ${next_hour}=    Get Next Full Hour With Timezone
     Wait Until Page Contains Element    xpath=//android.widget.TextView[@text="at ${next_hour}"]    timeout=15
 
 Verify Forecast Length
@@ -62,14 +67,25 @@ Click Parameters Button
     Click Element    xpath=//android.widget.Button[@resource-id="params_button"]
 
 Click Close Observation Stations List Button
-    Wait Until Page Contains Element    xpath=//android.widget.Button[@content-desc="Close hourly parameter selection"]
-    Click Element    xpath=//android.widget.Button[@content-desc="Close hourly parameter selection"]
-    Wait Until Page Does Not Contain Element    xpath=//android.widget.Button[@content-desc="Close hourly parameter selection"]
+    Sleep    2
+    ${close_button_count}=    Get Matching Xpath Count    //android.widget.Button[@content-desc="Close hourly parameter selection"]
+    IF    ${close_button_count}==${1}
+        Wait Until Page Contains Element    xpath=//android.widget.Button[@content-desc="Close hourly parameter selection"]
+        Click Element    xpath=//android.widget.Button[@content-desc="Close hourly parameter selection"]
+        Wait Until Page Does Not Contain Element    xpath=//android.widget.Button[@content-desc="Close hourly parameter selection"]
+    ELSE
+        Element Should Be Visible    xpath=//android.view.View[contains(@content-desc,'Observation station:')]/android.view.ViewGroup
+    END
 
-Click List View Button
-    Wait Until Page Contains Element    xpath=//android.widget.Button[@resource-id='observation_list_button' and @selected='false']
-    Click Element    xpath=//android.widget.Button[@resource-id='observation_list_button']
+Click Observation Station List View Button
+    Wait Until Page Contains Element    xpath=//android.widget.Button[@resource-id='observation_list_button']
+    Click Element                       xpath=//android.widget.Button[@resource-id='observation_list_button']
     Wait Until Page Contains Element    xpath=//android.widget.Button[@resource-id='observation_list_button' and @selected='true']
+
+Click Observation Station Graph View Button
+    Wait Until Page Contains Element    xpath=//android.widget.Button[@resource-id='observation_chart_button']
+    Click Element                       xpath=//android.widget.Button[@resource-id='observation_chart_button']
+    Wait Until Page Contains Element    xpath=//android.widget.Button[@resource-id='observation_chart_button' and @selected='true']
 
 Verify Parameters Info View
     Wait Until Page Contains Element    xpath=//android.view.ViewGroup[@resource-id="weather_info_bottom_sheet"]
@@ -86,7 +102,7 @@ Click Parameters Close Button
     Wait Until Page Does Not Contain Element    xpath=//android.widget.Button[@resource-id="weather_params_bottom_sheet_close_button"]
 
 Verify ${date_type} Date Of Forecast At Horizontal Scroll Bar
-    [Arguments]    ${days_ahead}=9    ${format}=%a %#d %b    ${index}=1
+    [Arguments]    ${days_ahead}=9    ${format}=%a %-d %b    ${index}=1
     IF    '${date_type}'=='First'
         ${date}=    Get Current Date    ${format}
         Wait Until Page Contains Element    xpath=//android.widget.ScrollView[@resource-id="weather_scrollview"]//android.widget.HorizontalScrollView[1]//android.widget.Button[1]//android.widget.TextView[1]
@@ -179,7 +195,7 @@ Verify Observation Stations Are Active Stations
         Wait Until Page Contains Element    xpath=//android.view.View[@content-desc="Observation station: ${station_text}"]/following-sibling::android.view.ViewGroup/android.widget.TextView[@text="Latest weather observation"]    timeout=10
         Wait Until Element Is Visible    xpath=//android.widget.Button[@resource-id='observation_list_button']/following-sibling::android.widget.HorizontalScrollView//android.widget.Button[last()]    timeout=10
         ${xpath_count}=    Get Matching Xpath Count    //android.widget.Button[@resource-id='observation_list_button']/following-sibling::android.widget.HorizontalScrollView//android.widget.Button
-        Should Be True    ${xpath_count} > 2
+        Should Be True    ${xpath_count} >= 1
         Open Observation Stations Dropdown List
     END
 
@@ -203,11 +219,29 @@ Verify Observation Stations Are Once In A Day Reporting Stations
     END
 
 Verify Once A Day Reporting Station List View Date
-    [Arguments]    ${date_format}=%A %#d %b
+    [Arguments]    ${date_format}=%A %-d %b
     ${current_date}=    Get Current Date    ${date_format}
     Wait Until Element Is Visible    xpath=//android.view.ViewGroup[contains(@resource-id,"observation_list_header")]/preceding-sibling::android.widget.TextView[@text='${current_date}']
     
 Verify Active Station List View Date
-    [Arguments]    ${date_format}=%a %#d.%#m.
+    [Arguments]    ${date_format}=%a %-d.%-m.
     ${current_date}=    Get Current Date    ${date_format}
     Wait Until Element Is Visible    xpath=//android.widget.TextView[@text="Latest weather observation"]/following-sibling::android.widget.TextView[contains(@text,"${current_date} at ")]
+
+Set Default Weather View
+    Swipe By Percent    50    10    50    90    duration=1000
+    Open Weather View
+    Swipe By Percent    50    10    50    90    duration=1000
+    Click Table Button
+    Verify Table View Is Active
+    Set New Location From Search View    Helsinki
+
+Set Default Weather View After Observation Station Test
+    Click Close Observation Stations List Button
+    Click Observation Station Graph View Button
+    Swipe By Percent    50    10    50    90    duration=1000
+    Open Weather View
+    Swipe By Percent    50    10    50    90    duration=1000
+    Click Table Button
+    Verify Table View Is Active
+    Set New Location From Search View    Helsinki

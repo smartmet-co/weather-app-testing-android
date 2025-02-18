@@ -10,6 +10,6 @@ DICT__GEO_LOCATION_COORDINATES_DICT = {'Kokkola':'23.126016871154913 63.84141087
                                        'Oulu':'25.81 65.05',
                                        'Posio':'28.167490306012272 66.11112685817982'}
 
-LOCAL_DEFAULT_LOCATION = 'Helsinki'
+LOCAL_DEFAULT_LOCATION = 'Crittenden School Park'
 CI_DEFAULT_LOCATION = 'Crittenden School Park'
 ICON_NAME_1 = '//com.horcrux.svg.PathView'

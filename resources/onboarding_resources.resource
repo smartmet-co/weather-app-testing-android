@@ -67,3 +67,14 @@ Press ${selection} From Grant Dialog
         Click Element    xpath=//android.widget.Button[@resource-id="com.android.permissioncontroller:id/permission_allow_foreground_only_button"]
     END
     Wait Until Element Is Visible    xpath=//android.view.View[@resource-id="navigation_others"]
+
+Run Skipped Onboarding Process
+    Weather forecast and observations Title Is Visible
+    Click Skip Button
+    Click Terms of Use Button
+    Click Close Button From Terms Of Use View
+    Click Accept Button
+    Location Title Is Visible
+    Click Next Setup Button
+    Verify Grant Dialog Opens
+    Press While Using App From Grant Dialog
