@@ -72,6 +72,7 @@ jobs:
           profile: pixel_3
           emulator-options: '-no-window -no-boot-anim'
           disable-animations: true
+          gesturesEnabled: true
           script: |
             echo "Emulator started"
 

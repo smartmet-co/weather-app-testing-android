@@ -229,9 +229,9 @@ Verify Active Station List View Date
     Wait Until Element Is Visible    xpath=//android.widget.TextView[@text="Latest weather observation"]/following-sibling::android.widget.TextView[contains(@text,"${current_date} at ")]
 
 Set Default Weather View
-    Swipe By Percent    50    90    50    10    duration=1000
+    Swipe By Percent    50    10    50    90    duration=1000
     Open Weather View
-    Swipe By Percent    50    90    50    10    duration=1000
+    Swipe By Percent    50    10    50    90    duration=1000
     Click Table Button
     Verify Table View Is Active
     Set New Location From Search View    Helsinki
