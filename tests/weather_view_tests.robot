@@ -72,7 +72,9 @@ Verify 10-day Forecast Horizontal Scroll Bar
 Verify Observation Stations Are Active Stations
     [Setup]    NONE
     Verify Location Text From Upper Bar
-    Swipe By Percent    50    90    50    10    duration=1500
+    Swipe Up
+    Swipe Up
+#    Swipe By Percent    50    90    50    10    duration=1500
     Open Observation Stations Dropdown List
     Verify Observation Stations Are Active Stations
     [Teardown]    Set Default Weather View After Observation Station Test

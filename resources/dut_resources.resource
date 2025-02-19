@@ -103,7 +103,13 @@ Verify Environment
     RETURN    ${status}
 
 Unlock Emulator
-    ${res}=    Run Process    adb    shell    input    keyevent    ${82}    alias=unlock_emulator
+    ${res}=    Run Process    adb    shell    input    keyevent    82    alias=unlock_emulator
 
 Enable Touchscreen Input
-    ${res}=    Run Process    adb    shell    settings    put    system    show_touches    ${1}    alias=enable_touchscreen
+    ${res}=    Run Process    adb    shell    settings    put    system    show_touches    1    alias=enable_touchscreen
+
+Swipe Up
+    ${res}=    Run Process    adb    shell    input    swipe    500    950    500    50    1000    alias=swipe_up
+
+Swipe Down
+    ${res}=    Run Process    adb    shell    input    swipe    500    300    500    700    1000    alias=swipe_up
