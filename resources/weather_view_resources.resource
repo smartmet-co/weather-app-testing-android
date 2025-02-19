@@ -229,7 +229,7 @@ Verify Active Station List View Date
     Wait Until Element Is Visible    xpath=//android.widget.TextView[@text="Latest weather observation"]/following-sibling::android.widget.TextView[contains(@text,"${current_date} at ")]
 
 Set Default Weather View
-    Swipe Down    ${3}    start_y=300    end_y=700
+    Swipe Down    ${5}    start_y=300    end_y=700
     Open Weather View
     Swipe Down    ${1}    start_y=300    end_y=700
     Click Table Button
@@ -239,7 +239,7 @@ Set Default Weather View
 Set Default Weather View After Observation Station Test
     Click Close Observation Stations List Button
     Click Observation Station Graph View Button
-    Swipe Down    ${3}    start_y=300    end_y=700
+    Swipe Down    ${5}    start_y=300    end_y=700
     Open Weather View
     Swipe Down    ${1}    start_y=300    end_y=700
     Click Table Button
