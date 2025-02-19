@@ -12,25 +12,17 @@ Resource         ../resources/onboarding_resources.resource
 Resource         ../resources/process_resources.resource
 Resource         ../resources/weather_view_resources.resource
 Resource         ../resources/warnings_view_resources.resource
+Resource         ../resources/search_view_resources.resource
 Variables        ../variables/appium_setup_variables.py
 Variables        ../variables/onboarding_variables.py
 Variables        ../variables/dut_variables.py
-Variables        ../variables/config_variables.py
-Test Setup       Start Emulator And Appium With App    ${APP_PACKAGE}    latest.apk
-Test Teardown    Run Keyword If Test Failed    Terminate All Processes Gracefully    emulator_process    appium_server_process
+Suite Setup      Suite Setup Actions    ${APP_PACKAGE}    app-latest.apk
+Suite Teardown   Suite Teardown Actions
+Test Setup       Run Skipped Onboarding Process
+Test Teardown    Set Default Weather View
 
 *** Test Cases ***
 Verify Warnings View Elements
-    Set DUT Geo Fix Location    ${GEO_LOCATION_COORDINATES_DICT}[Savukoski]
-    Weather forecast and observations Title Is Visible
-    Click Skip Button
-    Click Terms of Use Button
-    Click Close Button From Terms Of Use View
-    Click Accept Button
-    Location Title Is Visible
-    Click Next Setup Button
-    Verify Grant Dialog Opens
-    Press While Using App From Grant Dialog
-    Verify Location Text From Upper Bar    Savukoski
+    Verify Location Text From Upper Bar
+    Set New Location From Search View    Helsinki
     Open Warnings View
-    Terminate All Processes Gracefully    emulator_process    appium_server_process

@@ -6,20 +6,24 @@ Library          Process
 Library          String
 Library          Collections
 Library          RequestsLibrary
+Library          ../libraries/fmi_custom_library.py
 Resource         ../resources/appium_resources.resource
 Resource         ../resources/dut_resources.resource
 Resource         ../resources/onboarding_resources.resource
 Resource         ../resources/process_resources.resource
 Resource         ../resources/weather_view_resources.resource
-Variables        ../variables/config_variables.py
+Resource         ../resources/search_view_resources.resource
 Variables        ../variables/appium_setup_variables.py
 Variables        ../variables/onboarding_variables.py
 Variables        ../variables/dut_variables.py
-Test Setup       Start Emulator And Appium With App    ${APP_PACKAGE}    latest.apk
-Test Teardown    Run Keyword If Test Failed    Terminate All Processes Gracefully    emulator_process    appium_server_process
+Suite Setup      Suite Setup Actions    ${APP_PACKAGE}    app-latest.apk
+Suite Teardown   Suite Teardown Actions
+Test Setup       Setup Onboarding Test    ${APP_PACKAGE}    app-latest.apk
+Test Teardown    Set Default Weather View
 
 *** Test Cases ***
 Open Mobile Weather App With Full Onboarding Successfully
+    [Setup]    NONE
     Weather Forecast And Observations Icon Is Visible    ${ICON_NAME_1}
     Weather forecast and observations Title Is Visible
     Weather Forecast And Observations Intro Text Is Visible    ${INTRO_WFO_BODY_TEXT_EN}
@@ -46,12 +50,11 @@ Open Mobile Weather App With Full Onboarding Successfully
     Click Next Setup Button
     Verify Grant Dialog Opens
     Verify Grant Dialog Elements    ${PERMISSION_LOC_TEXT_EN}
-    Press Do Not Allow From Grant Dialog
-    Verify Location Text From Upper Bar    ${DEFAULT_LOCATION}
-    Terminate All Processes Gracefully    emulator_process    appium_server_process
+    Press While Using App From Grant Dialog
+    Verify Location Text From Upper Bar
+    [Teardown]    NONE
 
 Open Mobile Weather App With Skip Onboarding Successfully
-    Set DUT Geo Fix Location    ${GEO_LOCATION_COORDINATES_DICT}[Oulu]
     Weather Forecast And Observations Icon Is Visible    ${ICON_NAME_1}
     Weather forecast and observations Title Is Visible
     Weather Forecast And Observations Intro Text Is Visible    ${INTRO_WFO_BODY_TEXT_EN}
@@ -64,6 +67,6 @@ Open Mobile Weather App With Skip Onboarding Successfully
     Click Next Setup Button
     Verify Grant Dialog Opens
     Verify Grant Dialog Elements    ${PERMISSION_LOC_TEXT_EN}
-    Press While Using App From Grant Dialog
-    Verify Location Text From Upper Bar    Oulu
-    Terminate All Processes Gracefully    emulator_process   appium_server_process
+    Press Do Not Allow From Grant Dialog
+    Verify Location Text From Upper Bar    Helsinki
+    [Teardown]    NONE

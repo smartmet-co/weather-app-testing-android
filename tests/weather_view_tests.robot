@@ -15,7 +15,6 @@ Resource         ../resources/search_view_resources.resource
 Variables        ../variables/appium_setup_variables.py
 Variables        ../variables/onboarding_variables.py
 Variables        ../variables/dut_variables.py
-Variables        ../variables/config_variables.py
 Suite Setup      Suite Setup Actions    ${APP_PACKAGE}    app-latest.apk
 Suite Teardown   Suite Teardown Actions
 Test Setup       Run Skipped Onboarding Process

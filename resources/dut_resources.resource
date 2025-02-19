@@ -79,10 +79,6 @@ Suite Setup Actions
     ${is_ci_env}=    Verify Environment
     IF    ${is_ci_env}==${TRUE}
         Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
-#        Sleep    3
-#        Unlock Emulator
-#        Enable Touchscreen Input
-#        Sleep    3
         Set Appium Capabilities And Open App
     ELSE IF    ${is_ci_env}==${FALSE}
         Import Variables    ${CURDIR}/../variables/config_variables.py

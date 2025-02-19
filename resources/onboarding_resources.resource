@@ -78,3 +78,15 @@ Run Skipped Onboarding Process
     Click Next Setup Button
     Verify Grant Dialog Opens
     Press While Using App From Grant Dialog
+
+Setup Onboarding Test
+    [Arguments]    ${app_package}    ${package_name}
+    ${is_ci_env}=    Verify Environment
+    IF    ${is_ci_env}==${TRUE}
+        Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
+        Set Appium Capabilities And Open App
+    ELSE IF    ${is_ci_env}==${FALSE}
+        Import Variables    ${CURDIR}/../variables/config_variables.py
+        Terminate All Processes Gracefully    emulator_process    appium_server_process
+        Start Emulator And Appium With App    ${app_package}    ${package_name}
+    END
