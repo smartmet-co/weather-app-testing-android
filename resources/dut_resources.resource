@@ -79,6 +79,10 @@ Suite Setup Actions
     ${is_ci_env}=    Verify Environment
     IF    ${is_ci_env}==${TRUE}
         Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
+        Sleep    3
+        Unlock Emulator
+        Enable Touchscreen Input
+        Sleep    3
         Set Appium Capabilities And Open App
     ELSE IF    ${is_ci_env}==${FALSE}
         Import Variables    ${CURDIR}/../variables/config_variables.py
@@ -97,3 +101,9 @@ Verify Environment
     ${env_variables_dict}=    Get Environment Variables
     ${status}=    Get Status Is Key Found In Dictionary    ${env_variables_dict}    CI_ENV_ANDROID
     RETURN    ${status}
+
+Unlock Emulator
+    ${res}=    Run Process    adb    shell    input    keyevent    ${82}    alias=unlock_emulator
+
+Enable Touchscreen Input
+    ${res}=    Run Process    adb    shell    settings    put    system    show_touches    ${1}    alias=enable_touchscreen
