@@ -72,9 +72,7 @@ Verify 10-day Forecast Horizontal Scroll Bar
 Verify Observation Stations Are Active Stations
     [Setup]    NONE
     Verify Location Text From Upper Bar
-    Swipe Up
-    Swipe Up
-#    Swipe By Percent    50    90    50    10    duration=1500
+    Swipe Up    ${2}
     Open Observation Stations Dropdown List
     Verify Observation Stations Are Active Stations
     [Teardown]    Set Default Weather View After Observation Station Test
@@ -83,7 +81,7 @@ Verify Observation Stations Are Once In A Day Reporting Stations
     [Setup]    NONE
     Verify Location Text From Upper Bar
     Set New Location From Search View    Savukoski
-    Swipe By Percent    50    90    50    10    duration=1500
+    Swipe Up    ${2}
     Open Observation Stations Dropdown List
     Verify Observation Stations Are Once In A Day Reporting Stations
     [Teardown]    Set Default Weather View After Observation Station Test
@@ -92,7 +90,7 @@ Verify Once A Day Reporting Observation Station List View Elements
     [Setup]    NONE
     Verify Location Text From Upper Bar
     Set New Location From Search View    Posio
-    Swipe By Percent    50    90    50    10    duration=1500
+    Swipe Up    ${2}
     Open Observation Stations Dropdown List
     Select Observation Station    Posio Raistakka
     Click Observation Station List View Button
@@ -103,7 +101,7 @@ Verify Active Observation Station List View Elements
     [Setup]    NONE
     Verify Location Text From Upper Bar
     Set New Location From Search View    Savukoski
-    Swipe By Percent    50    90    50    10    duration=1500
+    Swipe Up    ${2}
     Open Observation Stations Dropdown List
     Select Observation Station    Salla Naruska
     Click Observation Station List View Button

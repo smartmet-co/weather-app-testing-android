@@ -79,10 +79,10 @@ Suite Setup Actions
     ${is_ci_env}=    Verify Environment
     IF    ${is_ci_env}==${TRUE}
         Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
-        Sleep    3
-        Unlock Emulator
-        Enable Touchscreen Input
-        Sleep    3
+#        Sleep    3
+#        Unlock Emulator
+#        Enable Touchscreen Input
+#        Sleep    3
         Set Appium Capabilities And Open App
     ELSE IF    ${is_ci_env}==${FALSE}
         Import Variables    ${CURDIR}/../variables/config_variables.py
@@ -109,7 +109,13 @@ Enable Touchscreen Input
     ${res}=    Run Process    adb    shell    settings    put    system    show_touches    1    alias=enable_touchscreen
 
 Swipe Up
-    ${res}=    Run Process    adb    shell    input    swipe    500    950    500    50    1000    alias=swipe_up
+    [Arguments]    ${how_many_swipes}    ${start_x}=500    ${start_y}=900    ${end_x}=500    ${end_y}=100    ${duration}=500
+    FOR    ${index}    IN RANGE    ${how_many_swipes} + 1
+        ${res}=    Run Process    adb    shell    input    swipe    ${start_x}    ${start_y}    ${end_x}    ${end_y}    ${duration}
+    END
 
 Swipe Down
-    ${res}=    Run Process    adb    shell    input    swipe    500    300    500    700    1000    alias=swipe_up
+    [Arguments]    ${how_many_swipes}    ${start_x}=500    ${start_y}=100    ${end_x}=500    ${end_y}=900    ${duration}=500
+    FOR    ${index}    IN RANGE    ${how_many_swipes} + 1
+        ${res}=    Run Process    adb    shell    input    swipe    ${start_x}    ${start_y}    ${end_x}    ${end_y}    ${duration}
+    END
