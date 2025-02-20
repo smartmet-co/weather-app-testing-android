@@ -63,6 +63,7 @@ Start Emulator And Appium With App
     Start Emulator
     Sleep    20
     Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
+    Start Logcat    local_logging=LOGGING_ON
     Set Appium Capabilities And Open App    ${android_version}    ${device_name}
 
 Start Emulator And Appium With Mock Server
@@ -75,10 +76,11 @@ Start Emulator And Appium With Mock Server
     Open Fmi Application With Mock Server
 
 Suite Setup Actions
-    [Arguments]    ${app_package}    ${package_name}
+    [Arguments]    ${app_package}    ${package_name}    ${set_ci_logging}=LOGGING_ON
     ${is_ci_env}=    Verify Environment
     IF    ${is_ci_env}==${TRUE}
         Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
+        IF    '${set_ci_logging}'=='LOGGING_ON'    Start Logcat
         Set Appium Capabilities And Open App
     ELSE IF    ${is_ci_env}==${FALSE}
         Import Variables    ${CURDIR}/../variables/config_variables.py
@@ -88,9 +90,9 @@ Suite Setup Actions
 Suite Teardown Actions
     ${is_ci_env}=    Verify Environment
     IF    ${is_ci_env}==${TRUE}
-        No Operation
+        Terminate All Processes
     ELSE IF    ${is_ci_env}==${FALSE}
-        Terminate All Processes Gracefully    emulator_process    appium_server_process
+        Terminate All Processes Gracefully    emulator_process    appium_server_process    logcat_process
     END
 
 Verify Environment

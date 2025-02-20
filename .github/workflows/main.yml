@@ -95,7 +95,6 @@ jobs:
           name: robot-test-results
           path: |
             ./results
-            ./stdout
           retention-days: 2
 
       # Upload Appium Logs
@@ -104,4 +103,13 @@ jobs:
         with:
           name: appium-logs
           path: appium.log
+          retention-days: 2
+
+      # Upload Android Logs
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-logs
+          path: |
+            ./stdout
           retention-days: 2
