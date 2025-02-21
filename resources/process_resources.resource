@@ -17,7 +17,6 @@ Start Logcat
     IF    ${is_ci_env}==${TRUE}
         Start Process   adb logcat *:${log_level} | grep ${filter}    shell=yes    stdout=${CURDIR}/../stdout/logcat.txt    alias=logcat_process
     ELSE IF    ${is_ci_env}==${FALSE} and '${local_logging}'=='LOGGING_ON'
-        IF    '${remove_file}'=='REMOVE_PREVIOUS_LOG'    Remove File    ${CURDIR}/../stdout/logcat.txt
         Start Process   adb logcat *:${log_level} | findstr ${filter}    shell=yes    stdout=${CURDIR}/../stdout/logcat.txt    alias=logcat_process
     END
 
