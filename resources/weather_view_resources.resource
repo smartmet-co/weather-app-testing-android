@@ -42,6 +42,7 @@ Verify Forecast Length
     
 Verify ${view_type} View Is Active
     IF    '${view_type}'=='Table'
+        Wait Until Page Contains Element    xpath=//android.widget.ScrollView[@resource-id="weather_scrollview"]/android.view.ViewGroup/android.view.ViewGroup[7]/android.view.ViewGroup[2]
         Wait Until Page Contains Element    xpath=//android.widget.ScrollView[@resource-id="weather_scrollview"]/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.HorizontalScrollView[2]/android.view.ViewGroup
         Wait Until Element Is Visible       xpath=//android.widget.ScrollView[@resource-id="weather_scrollview"]/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.HorizontalScrollView[2]/android.view.ViewGroup
     ELSE IF    '${view_type}'=='Graph'
@@ -52,6 +53,7 @@ Verify ${view_type} View Is Active
 Click ${view_type} Button
     IF    '${view_type}'=='Locate'    Sleep    10
     Click Element    xpath=//android.widget.Button[@resource-id="forecast_${view_type.lower()}_button"]
+    Sleep    0.5
 
 Click Parameters Info Button
     Wait Until Page Contains Element    xpath=//android.widget.Button[@resource-id="info_button" and @enabled="true"]

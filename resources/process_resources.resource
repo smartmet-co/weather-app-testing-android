@@ -12,7 +12,7 @@ Verify Is Process Running
     ${is_process_running}=    Is Process Running    ${process}
 
 Start Logcat
-    [Arguments]    ${local_logging}=LOGGING_OFF    ${remove_file}=REMOVE_PREVIOUS_LOG    ${filter}=${APP_PACKAGE}    ${log_level}=W
+    [Arguments]    ${local_logging}=LOGGING_OFF    ${remove_file}=REMOVE_PREVIOUS_LOG    ${filter}=${APP_PACKAGE}    ${log_level}=D
     ${is_ci_env}=    Verify Environment
     IF    ${is_ci_env}==${TRUE}
         Start Process   adb logcat *:${log_level} | grep ${filter}    shell=yes    stdout=${CURDIR}/../stdout/logcat.txt    alias=logcat_process
