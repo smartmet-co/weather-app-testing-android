@@ -64,6 +64,7 @@ Start Emulator And Appium With App
     Sleep    20
     Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
     Start Logcat    local_logging=LOGGING_ON
+    Disable ProfileInstaller
     Set Appium Capabilities And Open App    ${android_version}    ${device_name}
 
 Start Emulator And Appium With Mock Server
@@ -81,6 +82,7 @@ Suite Setup Actions
     IF    ${is_ci_env}==${TRUE}
         Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
         IF    '${set_ci_logging}'=='LOGGING_ON'    Start Logcat
+        Disable ProfileInstaller
         Set Appium Capabilities And Open App
     ELSE IF    ${is_ci_env}==${FALSE}
         Import Variables    ${CURDIR}/../variables/config_variables.py
@@ -105,6 +107,9 @@ Unlock Emulator
 
 Enable Touchscreen Input
     ${res}=    Run Process    adb    shell    settings    put    system    show_touches    1    alias=enable_touchscreen
+
+Disable ProfileInstaller
+    ${res}=    Run Process    adb    shell    setprop    debug.profileinstaller.disable    true    alias=disable_profileinstaller
 
 Swipe Up
     [Arguments]    ${how_many_swipes}    ${start_x}=500    ${start_y}=900    ${end_x}=500    ${end_y}=100    ${duration}=500
