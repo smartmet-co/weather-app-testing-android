@@ -65,6 +65,7 @@ Start Emulator And Appium With App
     Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
     Start Logcat    local_logging=LOGGING_ON
     Disable ProfileInstaller
+    Optimize Dex
     Set Appium Capabilities And Open App    ${android_version}    ${device_name}
 
 Start Emulator And Appium With Mock Server
@@ -83,6 +84,7 @@ Suite Setup Actions
         Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
         IF    '${set_ci_logging}'=='LOGGING_ON'    Start Logcat
         Disable ProfileInstaller
+        Optimize Dex
         Set Appium Capabilities And Open App
     ELSE IF    ${is_ci_env}==${FALSE}
         Import Variables    ${CURDIR}/../variables/config_variables.py
@@ -110,6 +112,9 @@ Enable Touchscreen Input
 
 Disable ProfileInstaller
     ${res}=    Run Process    adb    shell    setprop    debug.profileinstaller.disable    true    alias=disable_profileinstaller
+    
+Optimize Dex
+    ${res}=    Run Process    adb    shell     cmd     package     compile    -m     speed-profile    -f    ${APP_PACKAGE}    alias=dex_optimization
 
 Swipe Up
     [Arguments]    ${how_many_swipes}    ${start_x}=500    ${start_y}=900    ${end_x}=500    ${end_y}=100    ${duration}=1000
