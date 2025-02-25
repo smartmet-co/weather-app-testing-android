@@ -104,19 +104,19 @@ Click Parameters Close Button
     Wait Until Page Does Not Contain Element    xpath=//android.widget.Button[@resource-id="weather_params_bottom_sheet_close_button"]
 
 Verify ${date_type} Date Of Forecast At Horizontal Scroll Bar
-    [Arguments]    ${days_ahead}=9    ${format}=%a %-d %b    ${index}=1
-    ${is_ci_env}=    Verify Environment
-    ${format}=    Set Variable If    ${is_ci_env}==${FALSE}    ${format.replace('-', '#')}    ${format}
+    [Arguments]    ${days_ahead}=9    ${date_format}=%a %-d %b    ${index}=1
+    ${os}=    Get Os
+    ${date_format}=    Set Variable If    '${os}'=='Windows'    ${date_format.replace('-', '#')}    ${date_format}
     IF    '${date_type}'=='First'
-        ${date}=    Get Current Date    ${format}
+        ${date}=    Get Current Date    ${date_format}
         Wait Until Page Contains Element    xpath=//android.widget.ScrollView[@resource-id="weather_scrollview"]//android.widget.HorizontalScrollView[1]//android.widget.Button[1]//android.widget.TextView[1]
         ${ui_date}=    Get Text    xpath=//android.widget.ScrollView[@resource-id="weather_scrollview"]//android.widget.HorizontalScrollView[1]//android.widget.Button[1]//android.widget.TextView[1]
     ELSE IF    '${date_type}'=='Last'
-        ${date}=    Get Future Date    ${days_ahead}    ${format}
+        ${date}=    Get Future Date    ${days_ahead}    ${date_format}
         Wait Until Page Contains Element    xpath=//android.widget.ScrollView[@resource-id="weather_scrollview"]//android.widget.HorizontalScrollView[1]//android.widget.Button[last()]//android.widget.TextView[1]
         ${ui_date}=    Get Element Attribute    xpath=//android.widget.ScrollView[@resource-id="weather_scrollview"]//android.widget.HorizontalScrollView[1]//android.widget.Button[last()]//android.widget.TextView[1]    text
     ELSE IF    '${date_type}'=='Any'
-        ${date}=    Get Future Date    ${days_ahead}    ${format}
+        ${date}=    Get Future Date    ${days_ahead}    ${date_format}
         Wait Until Page Contains Element    xpath=//android.widget.ScrollView[@resource-id="weather_scrollview"]//android.widget.HorizontalScrollView[1]//android.widget.Button[${index}]//android.widget.TextView[1]
         ${ui_date}=    Get Element Attribute    xpath=//android.widget.ScrollView[@resource-id="weather_scrollview"]//android.widget.HorizontalScrollView[1]//android.widget.Button[${index}]//android.widget.TextView[1]    text
     END
@@ -224,15 +224,15 @@ Verify Observation Stations Are Once In A Day Reporting Stations
 
 Verify Once A Day Reporting Station List View Date
     [Arguments]    ${date_format}=%A %-d %b
-    ${is_ci_env}=    Verify Environment
-    ${date_format}=    Set Variable If    ${is_ci_env}==${FALSE}    ${date_format.replace('-', '#')}    ${date_format}
+    ${os}=    Get Os
+    ${date_format}=    Set Variable If    '${os}'=='Windows'    ${date_format.replace('-', '#')}    ${date_format}
     ${current_date}=    Get Current Date    ${date_format}
     Wait Until Element Is Visible    xpath=//android.view.ViewGroup[contains(@resource-id,"observation_list_header")]/preceding-sibling::android.widget.TextView[@text='${current_date}']
     
 Verify Active Station List View Date
     [Arguments]    ${date_format}=%a %-d.%-m.
-    ${is_ci_env}=    Verify Environment
-    ${date_format}=    Set Variable If    ${is_ci_env}==${FALSE}    ${date_format.replace('-', '#')}    ${date_format}
+    ${os}=    Get Os
+    ${date_format}=    Set Variable If    '${os}'=='Windows'    ${date_format.replace('-', '#')}    ${date_format}
     ${current_date}=    Get Current Date    ${date_format}
     Wait Until Element Is Visible    xpath=//android.widget.TextView[@text="Latest weather observation"]/following-sibling::android.widget.TextView[contains(@text,"${current_date} at ")]
 

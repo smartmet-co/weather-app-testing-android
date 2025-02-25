@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 import pytz
+import platform
 
 """ This function returns next full hour in given format (optional). Default format is %H.%M """
 
@@ -100,3 +101,10 @@ def return_even_number_as_integer_if_float_is_even(fl):
 
 def get_status_is_key_found_in_dictionary(dictionary, key):
     return key in dictionary
+
+
+""" This function returns current operating system. """
+
+
+def get_os():
+    return platform.system()
