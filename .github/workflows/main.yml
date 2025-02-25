@@ -5,7 +5,7 @@ on:
 
 env:
   CI_ENV_ANDROID: "ci_android"
-  PLATFORM_VERSION: "12.0"
+  PLATFORM_VERSION: "15"
   DEVICE_NAME: "emulator-5554"
 
 jobs:
@@ -66,12 +66,7 @@ jobs:
       - name: Start Android Emulator And Run Tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 31
-          target: google_apis
-          arch: x86_64
-          profile: pixel_3
-          emulator-options: '-no-window -no-boot-anim'
-          disable-animations: true
+          api-level: 35
           script: |
             echo "Emulator started"
 
@@ -80,7 +75,7 @@ jobs:
             sleep 20
 
             echo "Running Robot Framework tests..."
-            robot -d results tests/warnings_view_tests.robot tests/other_view_tests.robot tests/map_view_tests.robot tests/weather_view_tests.robot || true
+            robot -d results tests/weather_view_tests.robot tests/warnings_view_tests.robot tests/other_view_tests.robot tests/map_view_tests.robot || true
 
       # Remove apks from apk-folder After Tests
       - name: Clean Up Apk Files
