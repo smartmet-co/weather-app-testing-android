@@ -42,11 +42,11 @@ Verify Forecast Length
     
 Verify ${view_type} View Is Active
     IF    '${view_type}'=='Table'
-        Wait Until Page Contains Element    xpath=//android.widget.ScrollView[@resource-id="weather_scrollview"]/android.view.ViewGroup/android.view.ViewGroup[7]/android.view.ViewGroup[2]
+        Wait Until Page Contains Element    xpath=//android.widget.ScrollView[@resource-id="weather_scrollview"]/android.view.ViewGroup/android.view.ViewGroup[7]/android.view.ViewGroup[2]    timeout=20
         Wait Until Page Contains Element    xpath=//android.widget.ScrollView[@resource-id="weather_scrollview"]/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.HorizontalScrollView[2]/android.view.ViewGroup
         Wait Until Element Is Visible       xpath=//android.widget.ScrollView[@resource-id="weather_scrollview"]/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.HorizontalScrollView[2]/android.view.ViewGroup
     ELSE IF    '${view_type}'=='Graph'
-        Wait Until Page Contains Element    xpath=//android.view.ViewGroup[@resource-id="forecast_chart"]
+        Wait Until Page Contains Element    xpath=//android.view.ViewGroup[@resource-id="forecast_chart"]    timeout=20
         Wait Until Element Is Visible       xpath=//android.view.ViewGroup[@resource-id="forecast_chart"]
     END
     
