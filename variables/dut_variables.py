@@ -1,3 +1,6 @@
+import os
+
+# Geolocation coordinates
 DICT__GEO_LOCATION_COORDINATES_DICT = {'Kokkola':'23.126016871154913 63.84141087895833',
                                        'Seattle':'-122.34645486382637 47.58411206957979',
                                        'Savukoski':'28.158609 67.272971',
@@ -10,6 +13,12 @@ DICT__GEO_LOCATION_COORDINATES_DICT = {'Kokkola':'23.126016871154913 63.84141087
                                        'Oulu':'25.81 65.05',
                                        'Posio':'28.167490306012272 66.11112685817982'}
 
+# Dut default locations
 LOCAL_DEFAULT_LOCATION = 'Helsinki'
 CI_DEFAULT_LOCATION = 'Crittenden School Park'
+CI_PLATFORM_VERSION = os.getenv('PLATFORM_VERSION', '')
+if CI_PLATFORM_VERSION == '15':
+    CI_DEFAULT_LOCATION = LOCAL_DEFAULT_LOCATION
+
+# Icon names
 ICON_NAME_1 = '//com.horcrux.svg.PathView'
