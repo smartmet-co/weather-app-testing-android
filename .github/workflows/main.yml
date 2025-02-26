@@ -5,7 +5,7 @@ on:
 
 env:
   CI_ENV_ANDROID: "ci_android"
-  PLATFORM_VERSION: "15"
+  PLATFORM_VERSION: "12.0"
   DEVICE_NAME: "emulator-5554"
 
 jobs:
@@ -66,14 +66,13 @@ jobs:
       - name: Start Android Emulator And Run Tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 35
+          api-level: 31
           target: google_apis
           ram-size: 2048M
-          disk-size: 4096M
+          disk-size: 2048M
           arch: x86_64
           profile: pixel_3
           disable-animations: true
-          disable-spellchecker: true
           script: |
             echo "Emulator started"
 
