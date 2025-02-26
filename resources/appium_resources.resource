@@ -9,6 +9,7 @@ Set Appium Capabilities And Open App
     ...    automationName=${AUTOMATION_NAME}
     ...    appPackage=${app}
     ...    appActivity=${activity}
+    ...    appium:noReset=true
     ...    appium:wdaLaunchTimeout=${180000}
 
 Set Appium Capabilities With Mock Server And Open App
