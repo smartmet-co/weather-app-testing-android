@@ -117,13 +117,13 @@ Optimize Dex
     ${res}=    Run Process    adb    shell     cmd     package     compile    -m     speed-profile    -f    ${APP_PACKAGE}    alias=dex_optimization
 
 Swipe Up
-    [Arguments]    ${how_many_swipes}    ${start_x}=500    ${start_y}=900    ${end_x}=500    ${end_y}=100    ${duration}=1000
+    [Arguments]    ${how_many_swipes}    ${start_x}=500    ${start_y}=900    ${end_x}=500    ${end_y}=100    ${duration}=1500
     FOR    ${index}    IN RANGE    ${how_many_swipes} + 1
         ${res}=    Run Process    adb    shell    input    swipe    ${start_x}    ${start_y}    ${end_x}    ${end_y}    ${duration}
     END
 
 Swipe Down
-    [Arguments]    ${how_many_swipes}    ${start_x}=500    ${start_y}=100    ${end_x}=500    ${end_y}=900    ${duration}=1000
+    [Arguments]    ${how_many_swipes}    ${start_x}=500    ${start_y}=100    ${end_x}=500    ${end_y}=900    ${duration}=1500
     FOR    ${index}    IN RANGE    ${how_many_swipes} + 1
         ${res}=    Run Process    adb    shell    input    swipe    ${start_x}    ${start_y}    ${end_x}    ${end_y}    ${duration}
     END

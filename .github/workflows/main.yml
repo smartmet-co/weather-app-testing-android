@@ -68,8 +68,12 @@ jobs:
         with:
           api-level: 35
           target: google_apis
+          ram-size: 2048M
+          disk-size: 4096M
           arch: x86_64
           profile: pixel_3
+          disable-animations: true
+          disable-spellchecker: true
           script: |
             echo "Emulator started"
 
