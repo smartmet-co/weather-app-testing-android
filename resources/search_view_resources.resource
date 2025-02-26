@@ -20,3 +20,23 @@ Set New Location From Search View
     Open Search View
     Enter Search Location    ${location}
     Select From Location Search Results    ${location}
+
+Open Search Info View
+    Wait Until Page Contains Element    xpath=//android.widget.Button[@resource-id='search_header_info_button']
+    Click Element                       xpath=//android.widget.Button[@resource-id='search_header_info_button']
+    Wait Until Element Is Visible       xpath=//android.view.ViewGroup[@resource-id="search_info_bottom_sheet"]
+
+Verify Search Info View Titles
+    [Arguments]    ${title_1}    ${title_2}
+    Wait Until Element Is Visible    xpath=//android.view.View[@text='${title_1}']
+    Wait Until Element Is Visible    xpath=//android.view.View[@text='${title_2}']
+
+Close Search Info
+    Wait Until Page Contains Element            xpath=//android.widget.Button[@resource-id='search_info_bottom_sheet_close_button']
+    Click Element                               xpath=//android.widget.Button[@resource-id='search_info_bottom_sheet_close_button']
+    Wait Until Page Does Not Contain Element    xpath=//android.widget.Button[@resource-id='search_info_bottom_sheet_close_button']
+
+Click Navigate Back From Search View
+    Wait Until Page Contains Element            xpath=//android.widget.Button[@resource-id='header-back']
+    Click Element                               xpath=//android.widget.Button[@resource-id='header-back']
+    Wait Until Page Does Not Contain Element    xpath=//android.widget.Button[@resource-id='header-back']
