@@ -63,7 +63,7 @@ Start Emulator And Appium With App
     Start Emulator
     Sleep    20
     Install New Apk And Uninstall Old If Found    ${app_package}    ${package_name}
-    Start Logcat    local_logging=LOGGING_ON
+    Start Logcat    local_logging=LOGGING_OFF
     Disable ProfileInstaller
     Optimize Dex
     Set Appium Capabilities And Open App    ${android_version}    ${device_name}
@@ -96,7 +96,7 @@ Suite Teardown Actions
     IF    ${is_ci_env}==${TRUE}
         Terminate All Processes
     ELSE IF    ${is_ci_env}==${FALSE}
-        Terminate All Processes Gracefully    emulator_process    appium_server_process    logcat_process
+        Terminate All Processes Gracefully    emulator_process    appium_server_process
     END
 
 Verify Environment

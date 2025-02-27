@@ -30,3 +30,35 @@ Verify Search Info View
     Close Search Info
     Click Navigate Back From Search View
     Verify Location Text From Upper Bar
+
+Save Search Location To My Places
+    [Setup]    NONE
+    Verify Location Text From Upper Bar
+    Open Search View
+    Enter Search Location    ${SEARCH_LOCATION_1}
+    Save Search Location To My Places From Star Icon    ${SEARCH_LOCATION_1}
+    Click Navigate Back From Search View
+    Verify Location Text From Upper Bar
+    Open Search View
+    Clear All My Places
+    Click Navigate Back From Search View
+    Verify Location Text From Upper Bar
+
+Delete Single Search Location From My Places
+    [Setup]    NONE
+    Verify Location Text From Upper Bar
+    Open Search View
+    Enter Search Location    ${SEARCH_LOCATION_1}
+    Save Search Location To My Places From Star Icon    ${SEARCH_LOCATION_1}
+    Enter Search Location    ${SEARCH_LOCATION_2}
+    Save Search Location To My Places From Star Icon    ${SEARCH_LOCATION_2}
+    Enter Search Location    ${SEARCH_LOCATION_3}
+    Save Search Location To My Places From Star Icon    ${SEARCH_LOCATION_3}
+    Delete Single Location From My Places From Star Icon     ${SEARCH_LOCATION_2}
+    Verify All My Places Locations    ${SEARCH_LOCATION_1}    ${SEARCH_LOCATION_3}
+    Verify Single Previous Searches Location    ${SEARCH_LOCATION_2}    unsaved
+    Clear All My Places
+    Verify Single Previous Searches Location    ${SEARCH_LOCATION_2}    unsaved
+    Clear All Previous Searches
+    Click Navigate Back From Search View
+    Verify Location Text From Upper Bar
