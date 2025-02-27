@@ -68,8 +68,6 @@ jobs:
         with:
           api-level: 31
           target: google_apis
-          ram-size: 2048M
-          disk-size: 2048M
           arch: x86_64
           profile: pixel_3
           disable-animations: true

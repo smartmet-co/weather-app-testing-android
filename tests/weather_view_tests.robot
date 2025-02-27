@@ -64,6 +64,7 @@ Verify Parameters Info View Opens
 Verify 10-day Forecast Horizontal Scroll Bar
     [Setup]    NONE
     Verify Location Text From Upper Bar
+    Set New Location From Search View    Helsinki
     Verify First Date Of Forecast At Horizontal Scroll Bar
     Scroll Forecast Horizontal Scroll Bar To Right 3 Times
     Verify Last Date Of Forecast At Horizontal Scroll Bar
