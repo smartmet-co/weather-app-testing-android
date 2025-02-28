@@ -5,7 +5,6 @@ Library          OperatingSystem
 Library          Process
 Library          String
 Library          Collections
-Library          RequestsLibrary
 Library          ../libraries/fmi_custom_library.py
 Resource         ../resources/appium_resources.resource
 Resource         ../resources/dut_resources.resource
