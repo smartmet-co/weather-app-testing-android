@@ -19,7 +19,6 @@ Variables        ../variables/dut_variables.py
 Suite Setup      Suite Setup Actions    ${APP_PACKAGE}    app-latest.apk
 Suite Teardown   Suite Teardown Actions
 Test Setup       Setup Onboarding Test    ${APP_PACKAGE}    app-latest.apk
-Test Teardown    Set Default Weather View
 
 *** Test Cases ***
 Open Mobile Weather App With Full Onboarding Successfully
@@ -52,7 +51,6 @@ Open Mobile Weather App With Full Onboarding Successfully
     Verify Grant Dialog Elements    ${PERMISSION_LOC_TEXT_EN}
     Press While Using App From Grant Dialog
     Verify Location Text From Upper Bar
-    [Teardown]    NONE
 
 Open Mobile Weather App With Skip Onboarding Successfully
     Weather Forecast And Observations Icon Is Visible    ${ICON_NAME_1}
@@ -69,4 +67,3 @@ Open Mobile Weather App With Skip Onboarding Successfully
     Verify Grant Dialog Elements    ${PERMISSION_LOC_TEXT_EN}
     Press Do Not Allow From Grant Dialog
     Verify Location Text From Upper Bar    Helsinki
-    [Teardown]    NONE

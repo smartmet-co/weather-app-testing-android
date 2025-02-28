@@ -79,7 +79,7 @@ jobs:
             sleep 20
 
             echo "Running Robot Framework tests..."
-            robot -d results tests/weather_view_tests.robot tests/warnings_view_tests.robot tests/other_view_tests.robot tests/search_view_tests.robot tests/map_view_tests.robot || true
+            robot -d results $(ls tests/*.robot | grep -v "mock_server_tests.robot") || true
 
       # Remove apks from apk-folder After Tests
       - name: Clean Up Apk Files
