@@ -32,7 +32,7 @@ Verify 10-day Forecast Table View Elements
 
 Verify 10-day Forecast Graph View Elements
     [Setup]    NONE
-    Verify Location Text From Upper Bar
+    Verify Location Text From Upper Bar    Helsinki
     Verify Table View Is Active
     Verify Parameters Button Is Enabled
     Verify Parameters Info Button Is Enabled
@@ -45,7 +45,7 @@ Verify 10-day Forecast Graph View Elements
 
 Verify Parameters View Opens
     [Setup]    NONE
-    Verify Location Text From Upper Bar
+    Verify Location Text From Upper Bar    Helsinki
     Verify Table View Is Active
     Click Parameters Button
     Verify Parameters View
@@ -54,7 +54,7 @@ Verify Parameters View Opens
 
 Verify Parameters Info View Opens
     [Setup]    NONE
-    Verify Location Text From Upper Bar
+    Verify Location Text From Upper Bar    Helsinki
     Verify Table View Is Active
     Click Parameters Info Button
     Verify Parameters Info View
@@ -63,7 +63,7 @@ Verify Parameters Info View Opens
 
 Verify 10-day Forecast Horizontal Scroll Bar
     [Setup]    NONE
-    Verify Location Text From Upper Bar
+    Verify Location Text From Upper Bar    Helsinki
     Set New Location From Search View    Helsinki
     Verify First Date Of Forecast At Horizontal Scroll Bar
     Scroll Forecast Horizontal Scroll Bar To Right 3 Times
@@ -71,7 +71,7 @@ Verify 10-day Forecast Horizontal Scroll Bar
 
 Verify Observation Stations Are Active Stations
     [Setup]    NONE
-    Verify Location Text From Upper Bar
+    Verify Location Text From Upper Bar    Helsinki
     Swipe Up    ${2}
     Open Observation Stations Dropdown List
     Verify Observation Stations Are Active Stations
@@ -79,7 +79,7 @@ Verify Observation Stations Are Active Stations
 
 Verify Observation Stations Are Once In A Day Reporting Stations
     [Setup]    NONE
-    Verify Location Text From Upper Bar
+    Verify Location Text From Upper Bar    Helsinki
     Set New Location From Search View    Savukoski
     Swipe Up    ${2}
     Open Observation Stations Dropdown List
@@ -88,7 +88,7 @@ Verify Observation Stations Are Once In A Day Reporting Stations
 
 Verify Once A Day Reporting Observation Station List View Elements
     [Setup]    NONE
-    Verify Location Text From Upper Bar
+    Verify Location Text From Upper Bar    Helsinki
     Set New Location From Search View    Posio
     Swipe Up    ${2}
     Open Observation Stations Dropdown List
@@ -99,7 +99,7 @@ Verify Once A Day Reporting Observation Station List View Elements
 
 Verify Active Observation Station List View Elements
     [Setup]    NONE
-    Verify Location Text From Upper Bar
+    Verify Location Text From Upper Bar    Helsinki
     Set New Location From Search View    Savukoski
     Swipe Up    ${2}
     Open Observation Stations Dropdown List

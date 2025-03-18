@@ -3,4 +3,6 @@
 *.pyc
 .venv/
 .idea/
+.robotcode_cache/
+results/
 variables/config_variables.py

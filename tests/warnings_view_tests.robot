@@ -24,5 +24,6 @@ Test Teardown    Set Default Weather View
 *** Test Cases ***
 Verify Warnings View Elements
     Verify Location Text From Upper Bar
-    Set New Location From Search View    Helsinki
     Open Warnings View
+    Verify Warnings View Elements
+    Verify Warnings Days Horizontal Ribbon Elements

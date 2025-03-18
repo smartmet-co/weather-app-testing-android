@@ -33,20 +33,20 @@ Verify Search Info View
 
 Save Search Location To My Places
     [Setup]    NONE
-    Verify Location Text From Upper Bar
+    Verify Location Text From Upper Bar    Helsinki
     Open Search View
     Enter Search Location    ${SEARCH_LOCATION_1}
     Save Search Location To My Places From Star Icon    ${SEARCH_LOCATION_1}
     Click Navigate Back From Search View
-    Verify Location Text From Upper Bar
+    Verify Location Text From Upper Bar    Helsinki
     Open Search View
     Clear All My Places
     Click Navigate Back From Search View
-    Verify Location Text From Upper Bar
+    Verify Location Text From Upper Bar    Helsinki
 
 Delete Single Search Location From My Places
     [Setup]    NONE
-    Verify Location Text From Upper Bar
+    Verify Location Text From Upper Bar    Helsinki
     Open Search View
     Enter Search Location    ${SEARCH_LOCATION_1}
     Save Search Location To My Places From Star Icon    ${SEARCH_LOCATION_1}
@@ -61,4 +61,4 @@ Delete Single Search Location From My Places
     Verify Single Previous Searches Location    ${SEARCH_LOCATION_2}    unsaved
     Clear All Previous Searches
     Click Navigate Back From Search View
-    Verify Location Text From Upper Bar
+    Verify Location Text From Upper Bar    Helsinki

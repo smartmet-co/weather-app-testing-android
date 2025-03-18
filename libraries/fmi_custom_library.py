@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import pytz
 import platform
+import re
 
 """ This function returns next full hour in given format (optional). Default format is %H.%M """
 
@@ -108,3 +109,11 @@ def get_status_is_key_found_in_dictionary(dictionary, key):
 
 def get_os():
     return platform.system()
+
+
+""" This function returns integer from given string. """
+
+
+def extract_integer_from_string(text):
+    match = re.search(r'\d+', text)
+    return int(match.group()) if match else None
